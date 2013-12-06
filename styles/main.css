@@ -1,0 +1,21 @@
+html{
+	background: white;
+	
+}
+body{
+background-color: black;  
+margin: 5px;
+padding : 10px;
+}
+
+header{
+	color:white;
+}
+header:first-letter {
+	color:lime;
+
+}
+
+canvas{
+	padding: 5px;
+}
