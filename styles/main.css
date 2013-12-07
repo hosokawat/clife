@@ -1,6 +1,5 @@
 html{
   background: white;
-
 }
 body{
   background-color: black;  
@@ -23,5 +22,14 @@ canvas {
   margin: 0 auto ;
   display:block;
   background-color:white;
-  padding:5px;
+  padding:2px;
+}
+canvas:hover{
+  background-color:gray;
+}
+a{
+  color:white;
+}
+a:hover{
+  color:fuchsia;
 }
