@@ -15,7 +15,7 @@ header:first-letter {
   color:lime;
 }
 #main{
-padding:10px;
+  padding:10px;
 }
 canvas {
   color:white;
@@ -25,11 +25,16 @@ canvas {
   padding:2px;
 }
 canvas:hover{
-  background-color:gray;
+  -webkit-transform: rotate(180deg); 
+  -moz-transform: rotate(180deg);
 }
 a{
   color:white;
 }
 a:hover{
   color:fuchsia;
+}
+p{
+  color:gray;
+  text-align:center;
 }
