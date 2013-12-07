@@ -1,21 +1,27 @@
 html{
-	background: white;
-	
+  background: white;
+
 }
 body{
-background-color: black;  
-margin: 5px;
-padding : 10px;
+  background-color: black;  
+  margin: 5px;
+  padding : 10px;
 }
 
 header{
-	color:white;
+  color:white;
+  text-align:center;
 }
 header:first-letter {
-	color:lime;
-
+  color:lime;
 }
-
-canvas{
-	padding: 5px;
+#main{
+padding:10px;
+}
+canvas {
+  color:white;
+  margin: 0 auto ;
+  display:block;
+  background-color:white;
+  padding:5px;
 }
