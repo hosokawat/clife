@@ -1,12 +1,13 @@
 html{
   background: white;
+  height:100%;
 }
 body{
   background-color: black;  
   margin: 5px;
   padding : 10px;
+  min-height : 100%;
 }
-
 header{
   color:white;
   text-align:center;
@@ -16,6 +17,7 @@ header:first-letter {
 }
 #main{
   padding:10px;
+
 }
 canvas {
   color:white;
@@ -23,10 +25,6 @@ canvas {
   display:block;
   background-color:white;
   padding:2px;
-}
-canvas:hover{
-  -webkit-transform: rotate(180deg); 
-  -moz-transform: rotate(180deg);
 }
 a{
   color:white;
