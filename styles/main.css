@@ -1,12 +1,13 @@
 html{
   background: white;
+  height:100%;
 }
 body{
   background-color: black;  
   margin: 5px;
   padding : 10px;
+  min-height : 100%;
 }
-
 header{
   color:white;
   text-align:center;
@@ -15,7 +16,7 @@ header:first-letter {
   color:lime;
 }
 #main{
-padding:10px;
+  padding:10px;
 }
 canvas {
   color:white;
