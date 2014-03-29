@@ -1,9 +1,9 @@
-CANVAS = document.getElementById('lifegame').getContext('2d');
-SIZE = 5;
-CANVAS_WIDTH = parseInt(document.getElementById('lifegame').width / SIZE);
-CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
 
 (function () {
+var CANVAS = document.getElementById('lifegame').getContext('2d');
+var SIZE = 5;
+var CANVAS_WIDTH = Math.floor(document.getElementById('lifegame').width / SIZE);
+var CANVAS_HEIGHT = Math.floor(document.getElementById('lifegame').height / SIZE);
 
     function Cell(r, g, b, enable) {
         this.r = r;
@@ -12,9 +12,9 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
         this.enable = enable; //int 0 or 1
         this.addColor = function (cell) {
             if (cell.enable === 0) return;
-            this.r = parseInt(this.r + cell.r);
-            this.g = parseInt(this.g + cell.g);
-            this.b = parseInt(this.b + cell.b);
+            this.r = Math.floor(this.r + cell.r);
+            this.g = Math.floor(this.g + cell.g);
+            this.b = Math.floor(this.b + cell.b);
         };
         this.clone = function (cell) {
             this.enable = cell.enable;
@@ -65,15 +65,15 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
             }
             if (this.enable === 0 & cnt === 3) {
                 nCell.enable = 1;
-                nCell.r = parseInt(nCell.r / cnt);
-                nCell.g = parseInt(nCell.g / cnt);
-                nCell.b = parseInt(nCell.b / cnt);
+                nCell.r = Math.floor(nCell.r / cnt);
+                nCell.g = Math.floor(nCell.g / cnt);
+                nCell.b = Math.floor(nCell.b / cnt);
             } else if ((cnt === 2 || cnt === 3) & this.enable == 1) {
                 nCell.enable = 1;
 
-                nCell.r = parseInt(nCell.r / cnt);
-                nCell.g = parseInt(nCell.g / cnt);
-                nCell.b = parseInt(nCell.b / cnt);
+                nCell.r = Math.floor(nCell.r / cnt);
+                nCell.g = Math.floor(nCell.g / cnt);
+                nCell.b = Math.floor(nCell.b / cnt);
 
             } else {
                 nCell.enable = 0;
@@ -86,7 +86,7 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
 
     Math.randomRange = function (max,min) {
         var _min = min === undefined ? 0 : min;
-        return parseInt(Math.random() * (max - _min)) + _min;
+        return Math.floor(Math.random() * (max - _min)) + _min;
     };
 
     
@@ -96,7 +96,7 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
 
 
     function tpl_DH(cellMap, x, y) {
-        tplCell = new Cell(Math.randomRange(50,0), Math.randomRange(250,200), Math.randomRange(250,200), 1);
+        tplCell = new Cell(Math.randomRange(50), Math.randomRange(250,200), Math.randomRange(250,200), 1);
 
         if (cellMap[0].length < x + 10 || cellMap.length < y + 5) {
             return;
@@ -111,14 +111,12 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
     }
 
     function tpl_Cell() {
-        switch (Math.randomRange(3)) {
-            case 0:
-                return new Cell(Math.randomRange(225,100), Math.randomRange(50), Math.randomRange(225,100), 1);
-            case 1:
-                return new Cell(Math.randomRange(50), Math.randomRange(225,100), Math.randomRange(225,100), 1);
-            case 2:
-                return new Cell(Math.randomRange(225,100), Math.randomRange(225,100), Math.randomRange(50), 1);
-        }
+        var color = Math.randomRange(3);
+        return new Cell(
+            Math.randomRange(color !== 0 ? 225 : 50  ,color !== 0 ? 100 : 0), 
+            Math.randomRange(color !== 1 ? 225 : 50  ,color !== 1 ? 100 : 0), 
+            Math.randomRange(color !== 2 ? 225 : 50  ,color !== 2 ? 100 : 0),
+        1);
     }
 
     function tpl_create(cellMap, x, y) {
@@ -190,7 +188,6 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
         setTimeout(function () {
             main(cellMap);
         }, 50);
-
     }
 
     function run(cellMap) {
@@ -208,7 +205,7 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
 
     function draw(cellMap) {
         function fillstyle_tpl(r,g,b) {
-          return  'rgb(' + r + ', ' + g + ', ' + b + ')';
+          return  'rgb(' + [r,g,b].join(',') + ')';
         }
 
         var x, y;
@@ -220,7 +217,7 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
                 } else {
                     CANVAS.fillStyle = fillstyle_tpl(0, 0, 0);
                 }
-                    CANVAS.fillRect(x * SIZE, y * SIZE, SIZE, SIZE);
+                CANVAS.fillRect(x * SIZE, y * SIZE, SIZE, SIZE);
             }
         }
     }
