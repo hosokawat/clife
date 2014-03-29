@@ -1,7 +1,6 @@
 CANVAS = document.getElementById('lifegame').getContext('2d');
 SIZE = 5;
 CANVAS_WIDTH = parseInt(document.getElementById('lifegame').width / SIZE);
-
 CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
 
 (function () {
@@ -13,9 +12,9 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
         this.enable = enable; //int 0 or 1
         this.addColor = function (cell) {
             if (cell.enable === 0) return;
-            this.r = parseInt((this.r + cell.r));
-            this.g = parseInt((this.g + cell.g));
-            this.b = parseInt((this.b + cell.b));
+            this.r = parseInt(this.r + cell.r);
+            this.g = parseInt(this.g + cell.g);
+            this.b = parseInt(this.b + cell.b);
         };
         this.clone = function (cell) {
             this.enable = cell.enable;
@@ -85,17 +84,19 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
         };
     }
 
-    function random(max) {
-        return parseInt(Math.random() * max);
-    }
+    Math.randomRange = function (max,min) {
+        var _min = min === undefined ? 0 : min;
+        return parseInt(Math.random() * (max - _min)) + _min;
+    };
 
-    function randomBoolean(percent) {
-        return (percent >= Math.random() ? 1 : 0);
-    }
+    
+    Boolean.random = function (percent) {
+        return percent >= Math.random();
+    };
 
 
     function tpl_DH(cellMap, x, y) {
-        tplCell = new Cell(random(50), random(50) + 200, random(50) + 200, 1);
+        tplCell = new Cell(Math.randomRange(50,0), Math.randomRange(250,200), Math.randomRange(250,200), 1);
 
         if (cellMap[0].length < x + 10 || cellMap.length < y + 5) {
             return;
@@ -110,18 +111,18 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
     }
 
     function tpl_Cell() {
-        switch (random(3)) {
+        switch (Math.randomRange(3)) {
             case 0:
-                return new Cell(100 + random(125), random(50), 100 + random(125), 1);
+                return new Cell(Math.randomRange(225,100), Math.randomRange(50), Math.randomRange(225,100), 1);
             case 1:
-                return new Cell(random(50), 100 + random(125), 100 + random(125), 1);
+                return new Cell(Math.randomRange(50), Math.randomRange(225,100), Math.randomRange(225,100), 1);
             case 2:
-                return new Cell(100 + random(125), 100 + random(125), random(50), 1);
+                return new Cell(Math.randomRange(225,100), Math.randomRange(225,100), Math.randomRange(50), 1);
         }
     }
 
     function tpl_create(cellMap, x, y) {
-        switch (random(3)) {
+        switch (Math.randomRange(3)) {
             case 0:
                 tpl_DN(cellMap, x, y);
                 break;
@@ -179,13 +180,12 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
 
     }
 
-
     function main(cellMap) {
         draw(cellMap);
         cellMap = run(cellMap);
 
-        if (randomBoolean(0.1)) {
-            tpl_create(cellMap, random(100), random(100));
+        if (Boolean.random(0.1)) {
+            tpl_create(cellMap, Math.randomRange(100), Math.randomRange(100));
         }
         setTimeout(function () {
             main(cellMap);
@@ -207,18 +207,20 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
     }
 
     function draw(cellMap) {
+        function fillstyle_tpl(r,g,b) {
+          return  'rgb(' + r + ', ' + g + ', ' + b + ')';
+        }
 
         var x, y;
         CANVAS.beginPath();
         for (x = 0; x < cellMap[0].length; x++) {
             for (y = 0; y < cellMap.length; y++) {
                 if (cellMap[x][y].enable == 1) {
-                    CANVAS.fillStyle = 'rgb(' + cellMap[x][y].r + ', ' + cellMap[x][y].g + ', ' + cellMap[x][y].b + ')';
-                    CANVAS.fillRect(x * SIZE, y * SIZE, SIZE, SIZE);
+                    CANVAS.fillStyle = fillstyle_tpl(cellMap[x][y].r,cellMap[x][y].g , cellMap[x][y].b);
                 } else {
-                    CANVAS.fillStyle = 'rgb(0, 0, 0)';
-                    CANVAS.fillRect(x * SIZE, y * SIZE, SIZE, SIZE);
+                    CANVAS.fillStyle = fillstyle_tpl(0, 0, 0);
                 }
+                    CANVAS.fillRect(x * SIZE, y * SIZE, SIZE, SIZE);
             }
         }
     }
@@ -227,10 +229,10 @@ CANVAS_HEIGHT = parseInt(document.getElementById('lifegame').height / SIZE);
     for (x = 0; x <= CANVAS_HEIGHT; x++) {
         var cellLine = [];
         for (y = 0; y <= CANVAS_HEIGHT; y++) {
-            cellLine.push(new Cell(random(255), random(255), random(255), 0));
+            cellLine.push(new Cell(Math.randomRange(255), Math.randomRange(255), Math.randomRange(255), 0));
         }
         cellMap.push(cellLine);
     }
-    tpl_ST(cellMap, random(100), random(100));
+    tpl_ST(cellMap, Math.randomRange(100), Math.randomRange(100));
     main(cellMap);
 })();
