@@ -17,7 +17,6 @@ header:first-letter {
 }
 #main{
   padding:10px;
-
 }
 canvas {
   color:white;
@@ -26,13 +25,12 @@ canvas {
   background-color:white;
   padding:2px;
 }
+canvas:hover{
+  background-color:gray;
+}
 a{
   color:white;
 }
 a:hover{
   color:fuchsia;
-}
-p{
-  color:gray;
-  text-align:center;
 }
